@@ -160,9 +160,7 @@ class LocalPlayer extends EventEmitter {
           this.removeLimitNotifications();
 
           this.engine.play().then(() => {
-            this.status()
-              .then(success)
-              .catch(reject);
+            this.status().then(success).catch(reject);
           });
         } else {
           if (this.playlist.isEmpty()) {
@@ -174,9 +172,7 @@ class LocalPlayer extends EventEmitter {
 
           this.loadAndPlayCurrent()
             .then(() => {
-              this.status()
-                .then(success)
-                .catch(reject);
+              this.status().then(success).catch(reject);
             })
             .catch(reject);
         }
@@ -216,7 +212,7 @@ class LocalPlayer extends EventEmitter {
     let url = '';
     switch (radioId) {
       case 'jazz':
-        url = 'http://us4.internet-radio.com:8266/stream';
+        url = 'http://schranz.in:8000/schranz';
         break;
       case 'rock':
         url = 'http://198.58.98.83:8258/stream';
@@ -231,7 +227,7 @@ class LocalPlayer extends EventEmitter {
         url = 'http://uk2.internet-radio.com:31491';
         break;
       case 'progressive-trance':
-        url = 'http://81.88.36.42:8010/listen.pls?sid=1';
+        url = 'http://schranz.in:8000/schranz';
         break;
       case 'goa-trance':
         url = 'http://81.88.36.42:8030/listen.pls?sid=1';
@@ -361,9 +357,7 @@ class LocalPlayer extends EventEmitter {
     }
 
     return new Promise((success, reject) => {
-      this.playNext({ songId, fromAction })
-        .then(success)
-        .catch(reject);
+      this.playNext({ songId, fromAction }).then(success).catch(reject);
     });
   }
 
@@ -373,9 +367,7 @@ class LocalPlayer extends EventEmitter {
         this.playlist
           .selectMedia(songId)
           .then(() => {
-            this.loadAndPlayCurrent()
-              .then(success)
-              .catch(reject);
+            this.loadAndPlayCurrent().then(success).catch(reject);
           })
           .catch(reject);
       } else {
@@ -470,10 +462,7 @@ class LocalPlayer extends EventEmitter {
       if (!currentSong?.pausedAt) {
         success();
       } else {
-        this.engine
-          .continue(currentSong.pausedAt)
-          .then(success)
-          .catch(reject);
+        this.engine.continue(currentSong.pausedAt).then(success).catch(reject);
       }
     });
   }
@@ -561,10 +550,7 @@ class LocalPlayer extends EventEmitter {
 
   forward(seconds = DEFAULT_SKIP_SECONDS) {
     return new Promise((success, reject) => {
-      this.engine
-        .forward({ seconds })
-        .then(success)
-        .catch(reject);
+      this.engine.forward({ seconds }).then(success).catch(reject);
     });
   }
 
@@ -576,10 +562,7 @@ class LocalPlayer extends EventEmitter {
     seconds = seconds || 0;
 
     return new Promise((success, reject) => {
-      this.engine
-        .seek({ seconds })
-        .then(success)
-        .catch(reject);
+      this.engine.seek({ seconds }).then(success).catch(reject);
     });
   }
 
@@ -634,10 +617,7 @@ class LocalPlayer extends EventEmitter {
         this.playlist.deselectCurrent();
         this.playlist.broadcastPlaylistState();
 
-        this.engine
-          .stop()
-          .then(success)
-          .catch(reject);
+        this.engine.stop().then(success).catch(reject);
       }
     });
   }
